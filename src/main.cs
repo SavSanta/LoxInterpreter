@@ -1,32 +1,56 @@
 using System;
 using System.IO;
+using System.Reflection.Metadata.Ecma335;
 
-if (args.Length < 2)
-{
-    Console.Error.WriteLine("Usage: ./your_program.sh tokenize <filename>");
-    Environment.Exit(1);
-}
+namespace LoxInterpreter {
+    public class Lox {
 
-string command = args[0];
-string filename = args[1];
+        public static void Main (string[] args) {
 
-if (command != "tokenize")
-{
-    Console.Error.WriteLine($"Unknown command: {command}");
-    Environment.Exit(1);
-}
+            if (args.Length < 2)
+            {
+                Console.Error.WriteLine("Usage: ./your_program.sh tokenize <filename>");
+                Environment.Exit(1);
+            }
 
-string fileContents = File.ReadAllText(filename);
+            string command = args[0];
+            string filename = args[1];
 
-// You can use print statements as follows for debugging, they'll be visible when running tests.
-Console.Error.WriteLine("Logs from your program will appear here!");
+            if (command != "tokenize")
+            {
+                Console.Error.WriteLine($"Unknown command: {command}");
+                Environment.Exit(1);
+            }
 
-// Uncomment this block to pass the first stage
-if (!string.IsNullOrEmpty(fileContents))
-{
-    throw new NotImplementedException("Scanner not implemented");
-}
-else
-{
-    Console.WriteLine("EOF  null"); // Placeholder, remove this line when implementing the scanner
+            // Getting the file contents using Fil
+            string fileContents = File.ReadAllText(filename);
+
+            if (!string.IsNullOrEmpty(fileContents))
+            {
+                Scanner scann = new Scanner(fileContents);
+                List<Token> parsed_tokens = scann.scanTokens();
+                // Output the parsed tokens to string format
+                parsed_tokens.ForEach(what => Console.WriteLine(what));
+                //System.Console.WriteLine("Hopefully finished tokenizing without too much fuss??");
+
+            }
+            else
+            {
+                Console.WriteLine("EOF  null"); // Placeholder, remove this line when implementing the scanner
+            }
+
+        }
+
+        private void Tokenize()
+        {
+
+
+
+
+
+        }
+
+
+    }
+
 }
