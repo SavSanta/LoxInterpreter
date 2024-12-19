@@ -4,6 +4,8 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace LoxInterpreter {
     public class Lox {
+        private static int exitCode = 0;
+        public static int ExitCode { get => exitCode; set => exitCode = value; }
 
         public static void Main (string[] args) {
 
@@ -31,7 +33,9 @@ namespace LoxInterpreter {
                 List<Token> parsed_tokens = scann.scanTokens();
                 // Output the parsed tokens to string format
                 parsed_tokens.ForEach(what => Console.WriteLine(what));
-                //System.Console.WriteLine("Hopefully finished tokenizing without too much fuss??");
+
+                // REFACTOR_NEEDED: Uses a static exitcode to pass a stage. Need to rework into own class with a hasError field like the book for REPL.
+                Environment.Exit(ExitCode);
 
             }
             else

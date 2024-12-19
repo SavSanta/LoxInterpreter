@@ -113,11 +113,19 @@ public class Scanner {
                     identfy();
                 }
                 else {
-                    Console.Write("Unexpected character during token parsing.\n"); break;
+
+                        // CodeCrafters instruction is to write this out to the STDERR stream.
+                        // Can separate this logic into it's own class later.
+                        // Long version rather than using Console.Error Write method directly.
+                        // REFACTOR_NEEDED: Hacky property method to set hasError/exitCode
+                        LoxInterpreter.Lox.ExitCode = 65;
+                        TextWriter errorWriter = Console.Error;
+                        errorWriter.Write($"[line {line}] Error: Unexpected character: {c}\n");
+                        break;
+                        
                 }
-            
-            
-                break;          // Final Break
+
+            break;          // default final Break
                 
         } // End Switch
 
