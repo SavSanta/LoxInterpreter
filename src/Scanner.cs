@@ -196,11 +196,11 @@ public class Scanner {
             }
                 if (isAtEnd())
                 {
+                    LoxInterpreter.Lox.ExitCode = 65;
                     System.Console.WriteLine("Unterminated string. Line No: {0} ", line.ToString());
                     return;
                 }
                
-            
                 // Move toward end quote
                 advance();
             
