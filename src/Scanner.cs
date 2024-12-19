@@ -196,8 +196,9 @@ public class Scanner {
             }
                 if (isAtEnd())
                 {
+                    // REFACTOR_NEEDED: Also setting hasError/exitCode using direct WriteLine method. Violating DRY principle. Make own class
                     LoxInterpreter.Lox.ExitCode = 65;
-                    System.Console.WriteLine("Unterminated string. Line No: {0} ", line.ToString());
+                    System.Console.Error.WriteLine($"[line {line}] Error: Unterminated string.", line.ToString());
                     return;
                 }
                
