@@ -192,14 +192,15 @@ public class Scanner {
                     line++;
                     advance();
                 }
-
+                advance();
+            }
                 if (isAtEnd())
                 {
                     System.Console.WriteLine("Unterminated string. Line No: {0} ", line.ToString());
                     return;
                 }
-                advance();
-            }
+               
+            
                 // Move toward end quote
                 advance();
             
