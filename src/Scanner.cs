@@ -169,7 +169,7 @@ public class Scanner {
             rounded_oneplace_num += ".0";
         }
 
-        addToken(TokenType.NUMBER, Double.Parse(source[start..current]));
+        addToken(TokenType.NUMBER, rounded_oneplace_num);
 
     }
 
