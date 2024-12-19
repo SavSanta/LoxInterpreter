@@ -23,8 +23,8 @@ namespace LoxInterpreter {
 
             if (type == TokenType.NUMBER)
             {
-                // Using the oldskool format for memoroy over fstring type
-                literal = $"{literal:F1}";
+                // Implemented in scanner
+
             }
 
             return this.type + " " + this.lexeme + " " + literal;

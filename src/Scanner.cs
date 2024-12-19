@@ -160,10 +160,13 @@ public class Scanner {
                 advance();
             }
         }
-        // May need to TryParse this bad-boy out eventually.
-        addToken(TokenType.NUMBER, Double.Parse(source[start..current]));
+            
+        // May still need to TryParse this bad-boy out eventually. As of now added a float_num and round_num.
+        var floated_number = double.Parse(source[start..current]);
+        var rounded_oneplace_num = Math.Round(floated_number, 1).ToString();
+        addToken(TokenType.NUMBER, rounded_oneplace_num);
 
-    }
+        }
 
     private void identfy() {
 
