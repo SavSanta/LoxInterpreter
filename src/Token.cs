@@ -24,7 +24,7 @@ namespace LoxInterpreter {
             if (type == TokenType.NUMBER)
             {
                 // Using the oldskool format for memory over fstring type
-                literal = string.Format("{0:F}", literal);
+                literal = string.Format("{0.#}", literal);
             }
 
             return this.type + " " + this.lexeme + " " + literal;
