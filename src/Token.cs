@@ -23,8 +23,7 @@ namespace LoxInterpreter {
 
             if (type == TokenType.NUMBER)
             {
-                // Implemented in scanner
-
+                // Implemented in Scanner
             }
 
             return this.type + " " + this.lexeme + " " + literal;

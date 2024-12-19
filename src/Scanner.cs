@@ -164,6 +164,12 @@ public class Scanner {
         // May still need to TryParse this bad-boy out eventually. As of now added a float_num and round_num.
         var floated_number = double.Parse(source[start..current]);
         var rounded_oneplace_num = Math.Round(floated_number, 1).ToString();
+        
+        // Have to manually add one place if it is being treated as a whole integer.
+        if (rounded_oneplace_num.Contains('.') == false ) 
+        {
+                rounded_oneplace_num += ".0";
+        }
         addToken(TokenType.NUMBER, rounded_oneplace_num);
 
         }
