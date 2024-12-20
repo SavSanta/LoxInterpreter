@@ -48,7 +48,7 @@ namespace LoxInterpreter {
             }
             else
             {
-                Console.WriteLine("EOF  null"); // Placeholder, remove this line when implementing the scanner
+                Console.WriteLine("EOF  null");
             }
 
         }
