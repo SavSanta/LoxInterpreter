@@ -24,9 +24,8 @@ namespace LoxInterpreter {
                 Environment.Exit(1);
             }
 
-            // Getting the file contents using Fil
+            // Read file contents and check if empty
             string fileContents = File.ReadAllText(filename);
-
             if (!string.IsNullOrEmpty(fileContents))
             {
 
