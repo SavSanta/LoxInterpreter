@@ -6,7 +6,6 @@ namespace LoxInterpreter {
     public class Lox {
         private static int exitCode = 0;
         public static int ExitCode { get => exitCode; set => exitCode = value; }
-
         public static void Main (string[] args) {
 
             if (args.Length < 2)
@@ -51,6 +50,7 @@ namespace LoxInterpreter {
             }
 
         }
+      
 
         private void Tokenize()
         {
