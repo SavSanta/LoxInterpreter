@@ -18,7 +18,7 @@ namespace LoxInterpreter {
             string command = args[0];
             string filename = args[1];
 
-            if (command != "tokenize")
+            if (command != "tokenize" || command != "parse")
             {
                 Console.Error.WriteLine($"Unknown command: {command}");
                 Environment.Exit(1);
@@ -29,14 +29,22 @@ namespace LoxInterpreter {
 
             if (!string.IsNullOrEmpty(fileContents))
             {
-                Scanner scann = new Scanner(fileContents);
-                List<Token> parsed_tokens = scann.scanTokens();
-                // Output the parsed tokens to string format
-                parsed_tokens.ForEach(what => Console.WriteLine(what));
 
+                if (command != "tokenize")
+                {
+                    Scanner scann = new Scanner(fileContents);
+                    List<Token> parsed_tokens = scann.scanTokens();
+                    // Output the parsed tokens to string format
+                    parsed_tokens.ForEach(what => Console.WriteLine(what));
+
+                }
+                else if (command != "parse")
+                {
+
+
+                }
                 // REFACTOR_NEEDED: Uses a static exitcode to pass a stage. Need to rework into own class with a hasError field like the book for REPL.
                 Environment.Exit(ExitCode);
-
             }
             else
             {
