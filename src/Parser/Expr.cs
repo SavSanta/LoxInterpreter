@@ -1,27 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.ConstrainedExecution;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LoxInterpreter.Parser
+﻿namespace LoxInterpreter.Parser
 {
-    internal class Binary : ExprBase
+    public class Binary : ExprBase
     {
-        ExprBase left;
-        Token oper;
-        ExprBase right;
-        public Binary(ExprBase left, Token oper, ExprBase right) 
+
+        Binary(ExprBase left, Token oper, ExprBase right)
         {
             this.left = left;
             this.oper = oper;
             this.right = right;
         }
+
+        private ExprBase left;
+        private Token oper;
+        private ExprBase right;
     }
+    public class Grouping : ExprBase
+    {
 
+        Grouping(ExprBase expression)
+        {
+            this.expression = expression;
+        }
 
+        private ExprBase expression;
+    }
+    public class Literal : ExprBase
+    {
 
+        Literal(Object value)
+        {
+            this.value = value;
+        }
+
+        private Object value;
+    }
+    public class Unary : ExprBase
+    {
+
+        Unary(Token oper, ExprBase right)
+        {
+            this.oper = oper;
+            this.right = right;
+        }
+
+        private Token oper;
+        private ExprBase right;
+    }
 
 
 }
