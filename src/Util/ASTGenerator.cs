@@ -26,8 +26,8 @@ namespace LoxInterpreter.Util
                 Console.Error.WriteLine("Usage: astgenerate <output_directory>");
                 Environment.Exit(64);
             }
-            //var procid = Process.GetCurrentProcess().Id;
-            //Console.WriteLine("Oigan Esta Process {0}.\n Press Any Key to Verify", procid.ToString()); Console.ReadKey();
+            var procid = Process.GetCurrentProcess().Id;
+            Console.WriteLine("Oigan Esta Process {0}.\n Press Any Key to Verify", procid.ToString()); Console.ReadKey();
             string outdir = args[0];
 
             /*  Generator substitutions
@@ -56,6 +56,7 @@ namespace LoxInterpreter.Util
             Console.WriteLine("namespace LoxInterpreter.Parser { \n");
             Console.WriteLine("");
             //Console.WriteLine("\t abstract class " + basename + " : ExprBase { \n");
+            DefineVisitor(basename, types);
 
             foreach (var type in types)
             {
@@ -70,6 +71,24 @@ namespace LoxInterpreter.Util
             Console.Out.Flush();
             Console.Out.Close();
             Console.SetOut(stdout);
+        }
+
+        private static void DefineVisitor(string basename, List<string> typeslist)
+        {
+            var types = typeslist
+                                    .Select(f => f.Trim())
+                                    .ToArray();
+
+            Console.WriteLine("  interface Visitor<R> {");
+            foreach (string type in types)
+            {
+                String typename = type.Split(':')[0].Trim();
+                Console.WriteLine("     void visit" + typename + basename + "(" +
+                    typename + " " + basename.ToLower() + ");");
+            }
+
+            Console.WriteLine("  }");
+        
         }
 
         private static void DefineType(string basename, string classname, string fieldslist)
@@ -93,6 +112,13 @@ namespace LoxInterpreter.Util
             }
             Console.WriteLine("    }");
             Console.WriteLine();
+
+            // Visitor Pattern implementt=ing in each subclass
+
+            Console.WriteLine("    public override");
+            Console.WriteLine("    void Accept(Visitor visitor) {");
+            Console.WriteLine("      return visitor.visit" + classname + basename + "(this);");
+            Console.WriteLine("    }");
 
             // Structure Field Members. put at the bottom
             foreach (string field in fields)
