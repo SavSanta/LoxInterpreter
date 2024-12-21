@@ -10,6 +10,11 @@
             this.right = right;
         }
 
+        public override
+        IExprVisitor Accept(IExprVisitor visitor)
+        {
+            return visitor.visitBinaryExprBase(this);
+        }
         private ExprBase left;
         private Token oper;
         private ExprBase right;
@@ -22,6 +27,11 @@
             this.expression = expression;
         }
 
+        public override
+        IExprVisitor Accept(IExprVisitor visitor)
+        {
+            return visitor.visitGroupingExprBase(this);
+        }
         private ExprBase expression;
     }
     public class Literal : ExprBase
@@ -32,6 +42,11 @@
             this.value = value;
         }
 
+        public override
+        IExprVisitor Accept(Visitor visitor)
+        {
+            return visitor.visitLiteralExprBase(this);
+        }
         private Object value;
     }
     public class Unary : ExprBase
@@ -43,6 +58,11 @@
             this.right = right;
         }
 
+        public override
+        IExprVisitor Accept(IExprVisitor visitor)
+        {
+            return visitor.visitUnaryExprBase(this);
+        }
         private Token oper;
         private ExprBase right;
     }
