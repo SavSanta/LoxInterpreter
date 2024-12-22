@@ -10,27 +10,27 @@ namespace LoxInterpreter
     {
         public class ASTPrinter : IExprVisitor
         {
-            public static IExprVisitor print(ExprBase expr)
+            public string print(ExprBase expr)
             {
                 return expr.Accept(this);
             }
 
-            public IExprVisitor visitBinaryExprBase(Binary expr)
+            public string visitBinaryExprBase(Binary expr)
             {
                 return parenthesize(expr.oper.lexeme, expr.left, expr.right);
             }
-            public IExprVisitor visitGroupingExprBase(Grouping expr)
+            public string visitGroupingExprBase(Grouping expr)
             {
                 return parenthesize("group", expr.expression);
             }
 
-            public IExprVisitor visitLiteralExprBase(Literal expr)
+            public string visitLiteralExprBase(Literal expr)
             {
                 if (expr.value == null) return "nil";
                 return expr.value.ToString();
             }
 
-            public IExprVisitor visitUnaryExprBase(Unary expr)
+            public string visitUnaryExprBase(Unary expr)
             {
                 return parenthesize(expr.oper.lexeme, expr.right);
             }
@@ -60,7 +60,7 @@ namespace LoxInterpreter
                     new Grouping(
                         new Literal(45.67)));
                 
-                Console.WriteLine(ASTPrinter.print(expression));
+                Console.WriteLine(new ASTPrinter().print(expression));
             }
         }
 

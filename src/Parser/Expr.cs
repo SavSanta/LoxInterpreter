@@ -11,7 +11,7 @@
         }
 
         public override
-        IExprVisitor Accept(IExprVisitor visitor)
+        string Accept(IExprVisitor visitor)
         {
             return visitor.visitBinaryExprBase(this);
         }
@@ -28,7 +28,7 @@
         }
 
         public override
-        IExprVisitor Accept(IExprVisitor visitor)
+        string Accept(IExprVisitor visitor)
         {
             return visitor.visitGroupingExprBase(this);
         }
@@ -42,7 +42,7 @@
         }
 
         public override
-        IExprVisitor Accept(IExprVisitor visitor)
+        string Accept(IExprVisitor visitor)
         {
             return visitor.visitLiteralExprBase(this);
         }
@@ -58,7 +58,7 @@
         }
 
         public override
-        IExprVisitor Accept(IExprVisitor visitor)
+        string Accept(IExprVisitor visitor)
         {
             return visitor.visitUnaryExprBase(this);
         }

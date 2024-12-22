@@ -4,10 +4,10 @@
     {
         public interface IExprVisitor
         {
-            IExprVisitor visitBinaryExprBase(Binary exprbase);
-            IExprVisitor visitGroupingExprBase(Grouping exprbase);
-            IExprVisitor visitLiteralExprBase(Literal exprbase);
-            IExprVisitor visitUnaryExprBase(Unary exprbase);
+            string visitBinaryExprBase(Binary exprbase);
+            string visitGroupingExprBase(Grouping exprbase);
+            string visitLiteralExprBase(Literal exprbase);
+            string visitUnaryExprBase(Unary exprbase);
         }
     }
 }

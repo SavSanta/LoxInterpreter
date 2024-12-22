@@ -6,7 +6,7 @@ namespace LoxInterpreter {
 	namespace Parser {
 
         public abstract class ExprBase {
-		public abstract IExprVisitor Accept(IExprVisitor visitor);	
+		public abstract string Accept(IExprVisitor visitor);	
 		
 		}
 	}
