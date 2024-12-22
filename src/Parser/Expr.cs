@@ -3,7 +3,7 @@
     public class Binary : ExprBase
     {
 
-        Binary(ExprBase left, Token oper, ExprBase right)
+        public Binary(ExprBase left, Token oper, ExprBase right)
         {
             this.left = left;
             this.oper = oper;
@@ -22,7 +22,7 @@
     public class Grouping : ExprBase
     {
 
-        Grouping(ExprBase expression)
+        public Grouping(ExprBase expression)
         {
             this.expression = expression;
         }
@@ -36,8 +36,7 @@
     }
     public class Literal : ExprBase
     {
-
-        Literal(Object value)
+        public Literal(Object value)
         {
             this.value = value;
         }
@@ -52,7 +51,7 @@
     public class Unary : ExprBase
     {
 
-        Unary(Token oper, ExprBase right)
+        public Unary(Token oper, ExprBase right)
         {
             this.oper = oper;
             this.right = right;
