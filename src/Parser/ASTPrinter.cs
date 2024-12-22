@@ -10,7 +10,7 @@ namespace LoxInterpreter
     {
         public class ASTPrinter : IExprVisitor
         {
-            public string print(ExprBase expr)
+            public string Print(ExprBase expr)
             {
                 return expr.Accept(this);
             }
@@ -60,7 +60,7 @@ namespace LoxInterpreter
                     new Grouping(
                         new Literal(45.67)));
                 
-                Console.WriteLine(new ASTPrinter().print(expression));
+                Console.WriteLine(new ASTPrinter().Print(expression));
             }
         }
 
