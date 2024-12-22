@@ -50,7 +50,7 @@ namespace LoxInterpreter
                 return builder.ToString();
             }
 
-            public static void Main(String[] args)
+            public static void FakeMain(String[] args)
             {
                 ExprBase expression = new Binary(
                     new Unary(
