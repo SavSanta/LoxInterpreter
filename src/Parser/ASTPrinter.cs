@@ -35,7 +35,7 @@ namespace LoxInterpreter
                 return parenthesize(expr.oper.lexeme, expr.right);
             }
 
-            private string parenthesize(string name, ExprBase[] exprs)
+            private string parenthesize(string name, params ExprBase[] exprs)
             {
                 StringBuilder builder = new StringBuilder();
 
