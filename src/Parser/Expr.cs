@@ -15,9 +15,9 @@
         {
             return visitor.visitBinaryExprBase(this);
         }
-        private ExprBase left;
-        private Token oper;
-        private ExprBase right;
+        public ExprBase left;
+        public Token oper;
+        public ExprBase right;
     }
     public class Grouping : ExprBase
     {
@@ -32,7 +32,7 @@
         {
             return visitor.visitGroupingExprBase(this);
         }
-        private ExprBase expression;
+        public ExprBase expression;
     }
     public class Literal : ExprBase
     {
@@ -47,7 +47,7 @@
         {
             return visitor.visitLiteralExprBase(this);
         }
-        private Object value;
+        public Object value;
     }
     public class Unary : ExprBase
     {
@@ -63,8 +63,8 @@
         {
             return visitor.visitUnaryExprBase(this);
         }
-        private Token oper;
-        private ExprBase right;
+        public Token oper;
+        public ExprBase right;
     }
 
 
