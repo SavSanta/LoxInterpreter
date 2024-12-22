@@ -10,7 +10,7 @@ namespace LoxInterpreter
     {
         public class ASTPrinter : IExprVisitor
         {
-            IExprVisitor print(ExprBase expr)
+            public static IExprVisitor print(ExprBase expr)
             {
                 return expr.Accept(this);
             }
@@ -38,7 +38,7 @@ namespace LoxInterpreter
             private string parenthesize(string name, ExprBase[] exprs)
             {
                 StringBuilder builder = new StringBuilder();
-                
+
                 builder.Append("(").Append(name);
                 foreach (ExprBase expr in exprs)
                 {
@@ -59,12 +59,11 @@ namespace LoxInterpreter
                     new Token(TokenType.STAR, "*", null, 1),
                     new Grouping(
                         new Literal(45.67)));
-
-                Console.WriteLine((new AstPrinter().print(expression));
+                
+                Console.WriteLine(ASTPrinter.print(expression));
             }
         }
 
     }
-
 }
 
