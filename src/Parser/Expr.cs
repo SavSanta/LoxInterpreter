@@ -43,7 +43,7 @@
         }
 
         public override
-        IExprVisitor Accept(Visitor visitor)
+        IExprVisitor Accept(IExprVisitor visitor)
         {
             return visitor.visitLiteralExprBase(this);
         }
