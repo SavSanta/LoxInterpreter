@@ -10,7 +10,7 @@ using LoxInterpreter.Parser;
 namespace LoxInterpreter {
     public class Lox {
         private static int exitCode = 0;
-        private static bool hadError = false;
+        public static bool hasError = false;
         private static readonly List<string> commands = new() { "tokenize", "parse" };
         public static int ExitCode { get => exitCode; set => exitCode = value; }
         public static void Main (string[] args) {
@@ -49,9 +49,12 @@ namespace LoxInterpreter {
                     List<Token> parsed_tokens = scann.scanTokens();
                     TokenParser pars = new TokenParser(parsed_tokens);
                     ExprBase expression = pars.parse();
-                    Console.WriteLine((new ASTPrinter().Print(expression)));
+                    if (!hasError)
+                    {
+                        Console.WriteLine((new ASTPrinter().Print(expression)));
+                    }
                 }
-                // REFACTOR_NEEDED: Uses a static exitcode to pass a stage. Need to rework into own class with a hasError field like the book for REPL.
+
                 Environment.Exit(ExitCode);
             }
             else
@@ -75,7 +78,7 @@ namespace LoxInterpreter {
 
         private static void Report(int line, string lex, string message)
         {
-            Console.Error.WriteLine($"Processing Error! Line: {line} Lexeme: {lex} Message:{message}"); ;
+            Console.Error.WriteLine($"[line {line}] Lexeme: {lex} Message:{message}");
         }
 
     }
