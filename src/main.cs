@@ -1,10 +1,14 @@
 using System;
 using System.IO;
+using System.Linq.Expressions;
 using System.Reflection.Metadata.Ecma335;
+using System.Threading.Channels;
+using LoxInterpreter.Parser;
 
 namespace LoxInterpreter {
     public class Lox {
         private static int exitCode = 0;
+        private static bool hadError = false;
         public static int ExitCode { get => exitCode; set => exitCode = value; }
         public static void Main (string[] args) {
 
@@ -38,7 +42,11 @@ namespace LoxInterpreter {
                 }
                 else if (command != "parse")
                 {
-
+                    Scanner scann = new Scanner(fileContents);
+                    List<Token> parsed_tokens = scann.scanTokens();
+                    TokenParser pars = new TokenParser(parsed_tokens);
+                    ExprBase expression = pars.parse();
+                    Console.WriteLine((new ASTPrinter().Print(expression)));
 
                 }
                 // REFACTOR_NEEDED: Uses a static exitcode to pass a stage. Need to rework into own class with a hasError field like the book for REPL.
@@ -50,17 +58,23 @@ namespace LoxInterpreter {
             }
 
         }
-      
 
-        private void Tokenize()
+        internal static void Error(Token token, String message)
         {
-
-
-
-
-
+            if (token.type == TokenType.EOF)
+            {
+                Report(token.line, " at end", message);
+            }
+            else
+            {
+                Report(token.line, " at '" + token.lexeme + "'", message);
+            }
         }
 
+        private static void Report(int line, string lex, string message)
+        {
+            Console.Error.WriteLine($"Processing Error! Line: {line} Lexeme: {lex} Message:{message}"); ;
+        }
 
     }
 
