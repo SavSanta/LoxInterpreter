@@ -28,8 +28,8 @@ namespace LoxInterpreter
             {
                 if (expr.value == null) return "nil";
                 // The early boolean lowering is because ToString returns it with "True/False"
-                if (expr.value == "true") return "true"; 
-                if (expr.value == "false") return "false"; 
+                if (expr.value.ToString() == "True") return "true"; 
+                if (expr.value.ToString() == "False") return "false"; 
                 return expr.value.ToString();
             }
 
