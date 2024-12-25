@@ -32,7 +32,7 @@ namespace LoxInterpreter {
             if (!string.IsNullOrEmpty(fileContents))
             {
 
-                if (command != "tokenize")
+                if (command == "tokenize")
                 {
                     Scanner scann = new Scanner(fileContents);
                     List<Token> parsed_tokens = scann.scanTokens();
@@ -40,7 +40,7 @@ namespace LoxInterpreter {
                     parsed_tokens.ForEach(what => Console.WriteLine(what));
 
                 }
-                else if (command != "parse")
+                else if (command == "parse")
                 {
                     Scanner scann = new Scanner(fileContents);
                     List<Token> parsed_tokens = scann.scanTokens();
