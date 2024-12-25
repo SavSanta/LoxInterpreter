@@ -18,7 +18,7 @@ namespace LoxInterpreter.Util
     /// </summary>
     public class ASTGenerator
     {
-        public static void Main(string[] args)
+        public static void FakeMain(string[] args)
         {
 
             if (args.Length < 0)
