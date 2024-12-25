@@ -1,4 +1,6 @@
 using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel.Design;
 using System.IO;
 using System.Linq.Expressions;
 using System.Reflection.Metadata.Ecma335;
@@ -9,19 +11,21 @@ namespace LoxInterpreter {
     public class Lox {
         private static int exitCode = 0;
         private static bool hadError = false;
+        private static readonly List<string> commands = new() { "tokenize", "parse" };
         public static int ExitCode { get => exitCode; set => exitCode = value; }
         public static void Main (string[] args) {
 
             if (args.Length < 2)
             {
                 Console.Error.WriteLine("Usage: ./your_program.sh tokenize <filename>");
+                Console.Error.WriteLine("Usage: ./your_program.sh parse <filename>");
                 Environment.Exit(1);
             }
 
             string command = args[0];
             string filename = args[1];
 
-            if (command != "tokenize" || command != "parse")
+            if (!Lox.commands.Contains(command))
             {
                 Console.Error.WriteLine($"Unknown command: {command}");
                 Environment.Exit(1);
@@ -31,7 +35,6 @@ namespace LoxInterpreter {
             string fileContents = File.ReadAllText(filename);
             if (!string.IsNullOrEmpty(fileContents))
             {
-
                 if (command == "tokenize")
                 {
                     Scanner scann = new Scanner(fileContents);
@@ -47,7 +50,6 @@ namespace LoxInterpreter {
                     TokenParser pars = new TokenParser(parsed_tokens);
                     ExprBase expression = pars.parse();
                     Console.WriteLine((new ASTPrinter().Print(expression)));
-
                 }
                 // REFACTOR_NEEDED: Uses a static exitcode to pass a stage. Need to rework into own class with a hasError field like the book for REPL.
                 Environment.Exit(ExitCode);
