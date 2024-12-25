@@ -10,7 +10,7 @@ namespace LoxInterpreter
         public class TokenParser
         {
             private List<Token> tokens;
-            private int current;
+            private int current = 0;
 
             public TokenParser(List<Token> tokens) 
             {
@@ -43,8 +43,8 @@ namespace LoxInterpreter
                     if (check(type))
                     {
                         advance();
+                        return true;
                     }
-                    return true;
                 }
                 return false;
             }
@@ -81,7 +81,7 @@ namespace LoxInterpreter
 
             private Token previous()
             {
-                return tokens[current-1];
+                return tokens[(current-1)];
             }
 
             private ExprBase comparison()
