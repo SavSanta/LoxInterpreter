@@ -12,7 +12,7 @@ namespace LoxInterpreter {
         private static int exitCode = 0;
         public static bool hasError = false;
         private static readonly List<string> commands = new() { "tokenize", "parse" };
-        public static int ExitCode { get => exitCode; set => exitCode = value; }
+        public static int ExitCode { get => exitCode;}
         public static void Main (string[] args) {
 
             if (args.Length < 2)
