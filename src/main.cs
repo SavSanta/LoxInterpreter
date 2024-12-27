@@ -1,6 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Design;
+using System.Diagnostics;
 using System.IO;
 using System.Linq.Expressions;
 using System.Reflection.Metadata.Ecma335;
@@ -91,6 +92,13 @@ namespace LoxInterpreter {
         private static void Report(int line, string lex, string message)
         {
             Console.Error.WriteLine($"[line {line}] Lexeme: {lex} Message:{message}");
+        }
+
+        internal static string ToLowerCaseIfBool(string value) 
+        {
+            if (value.ToString() == "True") return "true";
+            if (value.ToString() == "False") return "false";
+            return value;
         }
 
     }
