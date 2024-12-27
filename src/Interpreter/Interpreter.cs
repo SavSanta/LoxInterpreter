@@ -98,7 +98,7 @@ namespace LoxInterpreter
                 // We create some temp variables here to keep the "real" numbers as doubles.
                 double real_left, real_right;
                 bool l_success = (double.TryParse(left.ToString(), out real_left));
-                bool r_success = (double.TryParse(left.ToString(), out real_right));
+                bool r_success = (double.TryParse(right.ToString(), out real_right));
 
 
                 switch (expr.oper.type)
