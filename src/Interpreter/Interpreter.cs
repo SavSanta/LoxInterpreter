@@ -83,7 +83,7 @@ namespace LoxInterpreter
                 switch (expr.oper.type)
                 {
                     case TokenType.BANG: return !isTruthy(right);
-                    case TokenType.MINUS: return -(double)right;
+                    case TokenType.MINUS: return -Double.Parse(right.ToString());
                 }
                 // Unreachable.
                 return null;
