@@ -99,7 +99,7 @@ namespace LoxInterpreter
                 double real_left, real_right;
                 bool l_success = (double.TryParse(left.ToString(), out real_left));
                 bool r_success = (double.TryParse(right.ToString(), out real_right));
-
+                bool isbothnums = l_success & r_success;
 
                 switch (expr.oper.type)
                 {
@@ -111,7 +111,7 @@ namespace LoxInterpreter
                     case TokenType.MINUS: return real_left - real_right;
                     case TokenType.PLUS:
 
-                        if ((l_success) && (r_success))
+                        if (isbothnums)
                         {
                             return real_left + real_right;
                         }
@@ -123,7 +123,7 @@ namespace LoxInterpreter
                         break;
                     case TokenType.SLASH: return real_left / real_right;
                     case TokenType.STAR: return real_left * real_right;
-                    case TokenType.BANG_EQUAL: return !isEqual(real_left, real_right);
+                    case TokenType.BANG_EQUAL: return isEqual(real_left, real_right);
                     case TokenType.EQUAL_EQUAL: return isEqual(real_left, real_right);
                 }
 
