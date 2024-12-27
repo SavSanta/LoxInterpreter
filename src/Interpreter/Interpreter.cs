@@ -55,7 +55,8 @@ namespace LoxInterpreter
                     return text;
                 }
 
-                return obj.ToString();
+                // Have to add the goddamn redundant "stay lowercase" code because C# insists on capitalizing content for stupid Lox semantic
+                return Lox.ToLowerCaseIfBool(obj.ToString());
 
             }
 
