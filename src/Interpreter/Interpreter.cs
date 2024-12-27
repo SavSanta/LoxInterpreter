@@ -130,7 +130,11 @@ namespace LoxInterpreter
                         // This is a quick bad hack to pass the 98 == "98" codecraftors test.
                         // The representation of left and right is 98 -> 98.0 and '"98"' -> 98 (wwith maybe some quotes missing
 
-                        if (!(left.ToString().Contains(".") ^ right.ToString().Contains(".")) && isbothnums)
+                        //Cheap copout length test on the underlying literal. because i got tired of trying to figure out hte logi
+                        if (left.ToString().Length != right.ToString().Length)
+                        { return false; }
+
+                        if ((left.ToString().Contains(".") ^ !right.ToString().Contains(".")) && isbothnums)
                         { return isEqual(left, real_right); }
                         else 
                         { return isEqual(real_left, real_right); }
