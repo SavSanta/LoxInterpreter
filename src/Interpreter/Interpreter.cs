@@ -132,9 +132,6 @@ namespace LoxInterpreter
 
                         //Cheap copout length test on the underlying literal. because i got tired of trying to figure out hte logi
 
-                        //  if ((left.ToString().Contains(".") | right.ToString().Contains(".")) && isbothnums)
-                        //  {
-
                         List<string> stuff = new();
 
                         stuff.Add(left.ToString());
@@ -143,14 +140,28 @@ namespace LoxInterpreter
                         stuff.Add(real_right.ToString());
 
                         var res = stuff.TrueForAll(s => s.ToString() == real_left.ToString());
-                       
-                        if (res) 
+
+                        if (res)
                         {
                             return true;
                             return isEqual(left, real_right);
                         }
+                        else if (isbothnums)
+                        {
+                            if (left.ToString() !=  right.ToString()) 
+                            {
+                                if (left is String && right is String)
+                                {
+                                    return false;
+                                }
+                            }
+                            return isEqual(Double.Parse(left.ToString()), Double.Parse(right.ToString()));
+                        }
                         else
                         { return isEqual(left, right); }
+
+
+
                         
                 }
 
