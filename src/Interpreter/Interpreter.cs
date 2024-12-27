@@ -62,7 +62,7 @@ namespace LoxInterpreter
 
             private Object evaluate(Parser.ExprBase expr)
             {
-                return expr.Accept((Parser.IExprVisitor)this);
+                return expr.Accept(this);
             }
             public Object visitLiteralExprBase(Parser.Literal expr)
             {
