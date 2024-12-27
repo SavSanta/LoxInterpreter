@@ -131,7 +131,7 @@ namespace LoxInterpreter
                         // The representation of left and right is 98 -> 98.0 and '"98"' -> 98 (wwith maybe some quotes missing
 
                         if (!(left.ToString().Contains(".") ^ right.ToString().Contains(".")))
-                        { return isEqual(left, right); }
+                        { return isEqual(left, real_right); }
                         else 
                         { return isEqual(real_left, real_right); }
                         
