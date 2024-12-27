@@ -94,19 +94,24 @@ namespace LoxInterpreter
                 Object left = evaluate(expr.left);
                 Object right = evaluate(expr.right);
 
+                // Due to wonky-ness of Java -> C# translations
+                // We create some temp variables here to keep the "real" numbers as doubles.
+                double real_left, real_right;
+                bool l_success = (double.TryParse(left.ToString(), out real_left));
+                bool r_success = (double.TryParse(left.ToString(), out real_right));
+
+
                 switch (expr.oper.type)
                 {
 
-                    case TokenType.GREATER: return (double)left > (double)right;
-                    case TokenType.GREATER_EQUAL: return (double)left >= (double)right;
-                    case TokenType.LESS: return (double)left < (double)right;
-                    case TokenType.LESS_EQUAL: return (double)left <= (double)right;
-                    case TokenType.MINUS: return (double)left - (double)right;
+                    case TokenType.GREATER: return real_left > real_right;
+                    case TokenType.GREATER_EQUAL: return real_left >= real_right;
+                    case TokenType.LESS: return real_left < real_right;
+                    case TokenType.LESS_EQUAL: return real_left <= real_right;
+                    case TokenType.MINUS: return real_left - real_right;
                     case TokenType.PLUS:
-                        // Due to wonky-ness of java -> C# translations, We create some temp variables
-                        double real_left, real_right;
-                        
-                        if ((double.TryParse(left.ToString(), out real_left)) && (double.TryParse(right.ToString(), out real_right)))
+
+                        if ((l_success) && (r_success))
                         {
                             return real_left + real_right;
                         }
@@ -116,8 +121,8 @@ namespace LoxInterpreter
                             return (String)left + (String)right;
                         }
                         break;
-                    case TokenType.SLASH: return (double)left / (double)right;
-                    case TokenType.STAR: return (double)left * (double)right;
+                    case TokenType.SLASH: return real_left / real_right;
+                    case TokenType.STAR: return real_left * real_right;
                     case TokenType.BANG_EQUAL: return !isEqual(left, right);
                     case TokenType.EQUAL_EQUAL: return isEqual(left, right);
                 }
