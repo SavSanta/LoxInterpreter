@@ -5,20 +5,23 @@ using System.IO;
 using System.Linq.Expressions;
 using System.Reflection.Metadata.Ecma335;
 using System.Threading.Channels;
+using LoxInterpreter.Interpreter;
 using LoxInterpreter.Parser;
 
 namespace LoxInterpreter {
     public class Lox {
         private static int exitCode = 0;
         public static bool hasError = false;
-        private static readonly List<string> commands = new() { "tokenize", "parse" };
-        public static int ExitCode { get => exitCode;}
+        public static bool hadRuntimeError = false;
+        private static readonly List<string> commands = new() { "tokenize", "parse", "evaluate" };
+        public static int ExitCode { get => exitCode; set => exitCode = value;  }
         public static void Main (string[] args) {
 
             if (args.Length < 2)
             {
                 Console.Error.WriteLine("Usage: ./your_program.sh tokenize <filename>");
                 Console.Error.WriteLine("Usage: ./your_program.sh parse <filename>");
+                Console.Error.WriteLine("Usage: ./your_program.sh evaluate <filename>");
                 Environment.Exit(1);
             }
 
@@ -54,6 +57,15 @@ namespace LoxInterpreter {
                         Console.WriteLine((new ASTPrinter().Print(expression)));
                     }
                 }
+                else if ( command == "evaluate")
+                {
+                    Scanner scann = new Scanner(fileContents);
+                    List<Token> parsed_tokens = scann.scanTokens();
+                    TokenParser pars = new TokenParser(parsed_tokens);
+                    ExprBase expression = pars.parse();
+                    LoxInterpreter.Interpreter.Interpreter interpr = new();
+                    interpr.interpret(expression);
+                }
 
                 Environment.Exit(ExitCode);
             }
@@ -64,7 +76,7 @@ namespace LoxInterpreter {
 
         }
 
-        internal static void Error(Token token, String message)
+        internal static void Error(Token token, string message)
         {
             if (token.type == TokenType.EOF)
             {
