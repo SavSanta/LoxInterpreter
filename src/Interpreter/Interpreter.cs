@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using LoxInterpreter.Parser;
 
-
 namespace LoxInterpreter
 {
     namespace Interpreter
@@ -101,9 +100,12 @@ namespace LoxInterpreter
                     case TokenType.LESS_EQUAL: return (double)left <= (double)right;
                     case TokenType.MINUS: return (double)left - (double)right;
                     case TokenType.PLUS:
-                        if ((left is Double) && (right is Double))
+                        // Due to wonky-ness of java -> C# translations, We create some temp variables
+                        double real_left, real_right;
+                        
+                        if ((double.TryParse(left.ToString(), out real_left)) && (double.TryParse(right.ToString(), out real_right)))
                         {
-                            return (double)left + (double)right;
+                            return real_left + real_right;
                         }
 
                         if ((left is String) && (right is String))
