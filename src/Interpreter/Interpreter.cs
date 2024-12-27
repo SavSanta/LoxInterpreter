@@ -123,8 +123,8 @@ namespace LoxInterpreter
                         break;
                     case TokenType.SLASH: return real_left / real_right;
                     case TokenType.STAR: return real_left * real_right;
-                    case TokenType.BANG_EQUAL: return !isEqual(left, right);
-                    case TokenType.EQUAL_EQUAL: return isEqual(left, right);
+                    case TokenType.BANG_EQUAL: return !isEqual(real_left, real_right);
+                    case TokenType.EQUAL_EQUAL: return isEqual(real_left, real_right);
                 }
 
                 // Unreachable.
