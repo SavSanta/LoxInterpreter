@@ -27,10 +27,8 @@ namespace LoxInterpreter
             public string visitLiteralExprBase(Literal expr)
             {
                 if (expr.value == null) return "nil";
-                // The early boolean lowering is because ToString returns it with "True/False"
-                if (expr.value.ToString() == "True") return "true"; 
-                if (expr.value.ToString() == "False") return "false"; 
-                return expr.value.ToString();
+                // The early boolean lowering is because ToString returns it with "True/False capitalized otherwise"
+                return Lox.ToLowerCaseIfBool(expr.value.ToString());
             }
 
             public string visitUnaryExprBase(Unary expr)
