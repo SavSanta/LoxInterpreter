@@ -46,13 +46,15 @@ namespace LoxInterpreter
 
                 if (obj == null) return "nil";
 
-                if (obj is Double) {
-                    String text = obj.ToString();
-                    if (text.EndsWith(".0"))
+                // More double based crap. Could do a Try/Catch or put into own function but worried about unforseen crap. 
+                double _;
+                if (Double.TryParse(obj.ToString(), out _)) {
+                    if (obj.ToString().EndsWith(".0"))
                     {
-                        text = text.Substring(0, text.Length - 2);
+                        string text = obj.ToString().Substring(0, obj.ToString().Length - 2);
+                        return text;
                     }
-                    return text;
+
                 }
 
                 // Have to add the goddamn redundant "stay lowercase" code because C# insists on capitalizing content for stupid Lox semantic
