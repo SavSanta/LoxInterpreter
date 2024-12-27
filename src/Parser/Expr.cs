@@ -1,6 +1,6 @@
 ﻿namespace LoxInterpreter.Parser
 {
-    public class Binary : ExprBase
+    public partial class Binary : ExprBase
     {
 
         public Binary(ExprBase left, Token oper, ExprBase right)
@@ -19,7 +19,7 @@
         public Token oper;
         public ExprBase right;
     }
-    public class Grouping : ExprBase
+    public partial class Grouping : ExprBase
     {
 
         public Grouping(ExprBase expression)
@@ -34,7 +34,7 @@
         }
         public ExprBase expression;
     }
-    public class Literal : ExprBase
+    public partial class Literal : ExprBase
     {
         public Literal(Object value)
         {
@@ -48,7 +48,7 @@
         }
         public Object value;
     }
-    public class Unary : ExprBase
+    public partial class Unary : ExprBase
     {
 
         public Unary(Token oper, ExprBase right)
