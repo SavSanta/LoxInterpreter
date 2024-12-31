@@ -12,7 +12,7 @@ namespace LoxInterpreter
         {
             public ParseErrorException()
             {
-                // MIght as well use the exception here set exitcode as the main can decide on wether to attempt to print or not
+                // Might as well use the exception here set exitcode as the main can decide on wether to attempt to print or not
                 // due to issues with the malformed expr being null objects
                 Lox.hasError = true;
                 Lox.ExitCode = 65;
@@ -22,6 +22,17 @@ namespace LoxInterpreter
                
                 Lox.hasError = true;
                 Console.WriteLine(message);
+            }
+
+            //Specifcally this constructor is to support Section 7.4 for "RunTime Errors"
+            // without explicitly creating a new type at this moment
+            public ParseErrorException(int exitcode, Token oper , string message) : base(message)
+            {
+
+                Lox.hasError = true;
+                Lox.ExitCode = exitcode;
+                Console.WriteLine(message);
+
             }
 
             public ParseErrorException(string message, Exception inner) : base(message, inner)
