@@ -37,7 +37,8 @@ namespace LoxInterpreter
                 catch (Exception e)
                 {
                     {
-                        Console.WriteLine("Got some fucking ExceptionError in Interpreter: {0}", e.Message);
+                        // This previously was the catcher that spit out ""Got some fucking ExceptionError in Interpreter: {0}","
+                        Console.WriteLine(e.Message);
                     }
 
                 }
