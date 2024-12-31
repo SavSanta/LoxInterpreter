@@ -1,5 +1,7 @@
 ﻿using LoxInterpreter.Interpreter;
 
+// This extension class is implemented for hte Parser versions of hte visitor behaviours
+
 namespace LoxInterpreter.Parser
 {
     public partial class Binary : ExprBase
