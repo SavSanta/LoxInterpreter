@@ -94,13 +94,13 @@ namespace LoxInterpreter
             private void checkNumberOperand(Token oper, Object operand)
             {
                 if (oper is Double) return;
-                throw new ParseErrorException(75 , oper, "Operand must be a number.");
+                throw new ParseErrorException(70 , oper, "Operand must be a number.");
             }
 
             private void checkNumberOperands(Token oper, Object left, Object right)
             {
                 if ((left is Double) && (right is Double)) return;
-                throw new ParseErrorException(75, oper, "Operand must be a number.");
+                throw new ParseErrorException(70, oper, "Operand must be a number.");
             }
 
             public object visitBinaryExprBase(Parser.Binary expr)
@@ -145,7 +145,7 @@ namespace LoxInterpreter
                             return (String)left + (String)right;
                         }
 
-                        throw new ParseErrorException(75, expr.oper, "Operands must be two numbers or two strings.");
+                        throw new ParseErrorException(70, expr.oper, "Operands must be two numbers or two strings.");
                         break;
                     case TokenType.SLASH: return real_left / real_right;
                     case TokenType.STAR: return real_left * real_right;
