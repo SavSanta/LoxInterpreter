@@ -84,10 +84,23 @@ namespace LoxInterpreter
                 switch (expr.oper.type)
                 {
                     case TokenType.BANG: return !isTruthy(right);
-                    case TokenType.MINUS: return -Double.Parse(right.ToString());
+                    case TokenType.MINUS:
+                        checkNumberOperand(expr.oper, right);
+                        return -Double.Parse(right.ToString());
                 }
                 // Unreachable.
                 return null;
+            }
+            private void checkNumberOperand(Token oper, Object operand)
+            {
+                if (oper is Double) return;
+                throw new ParseErrorException(75 , oper, "Operand must be a number.");
+            }
+
+            private void checkNumberOperands(Token oper, Object left, Object right)
+            {
+                if ((left is Double) && (right is Double)) return;
+                throw new ParseErrorException(75, oper, "Operand must be a number.");
             }
 
             public object visitBinaryExprBase(Parser.Binary expr)
@@ -105,11 +118,21 @@ namespace LoxInterpreter
                 switch (expr.oper.type)
                 {
 
-                    case TokenType.GREATER: return real_left > real_right;
-                    case TokenType.GREATER_EQUAL: return real_left >= real_right;
-                    case TokenType.LESS: return real_left < real_right;
-                    case TokenType.LESS_EQUAL: return real_left <= real_right;
-                    case TokenType.MINUS: return real_left - real_right;
+                    case TokenType.GREATER:
+                        checkNumberOperands(expr.oper, real_left, real_right);
+                        return real_left > real_right;
+                    case TokenType.GREATER_EQUAL:
+                        checkNumberOperands(expr.oper, real_left, real_right);
+                        return real_left >= real_right;
+                    case TokenType.LESS:
+                        checkNumberOperands(expr.oper, real_left, real_right);
+                        return real_left < real_right;
+                    case TokenType.LESS_EQUAL:
+                        checkNumberOperands(expr.oper, real_left, real_right);
+                        return real_left <= real_right;
+                    case TokenType.MINUS:
+                        checkNumberOperands(expr.oper, real_left, real_right);
+                        return real_left - real_right;
                     case TokenType.PLUS:
 
                         if (isbothnums)
@@ -121,6 +144,8 @@ namespace LoxInterpreter
                         {
                             return (String)left + (String)right;
                         }
+
+                        throw new ParseErrorException(75, expr.oper, "Operands must be two numbers or two strings.");
                         break;
                     case TokenType.SLASH: return real_left / real_right;
                     case TokenType.STAR: return real_left * real_right;
