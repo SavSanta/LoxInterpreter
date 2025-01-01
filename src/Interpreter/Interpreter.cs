@@ -148,8 +148,20 @@ namespace LoxInterpreter
 
                         throw new ParseErrorException(70, expr.oper, "Operands must be two numbers or two strings.");
                         break;
-                    case TokenType.SLASH: return real_left / real_right;
-                    case TokenType.STAR: return real_left * real_right;
+                    case TokenType.SLASH:
+                        if (isbothnums)
+                        { 
+                            return real_left / real_right; 
+                        }
+                        throw new ParseErrorException(70, expr.oper, "Operands must be numbers.");
+                        break;
+                    case TokenType.STAR:
+                        if (isbothnums)
+                        {
+                            return real_left * real_right;
+                        }
+                        throw new ParseErrorException(70, expr.oper, "Operands must be numbers.");
+                        break;
                     case TokenType.BANG_EQUAL: return isbothnums ? !isEqual(real_left, real_right) : !isEqual(left, right);
                     case TokenType.EQUAL_EQUAL:
                         // Check the underlying raw representation for a string coalesced into number/double ?
