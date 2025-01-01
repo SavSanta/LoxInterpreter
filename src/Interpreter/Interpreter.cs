@@ -114,7 +114,9 @@ namespace LoxInterpreter
                 double real_left, real_right;
                 bool l_success = (double.TryParse(left.ToString(), out real_left));
                 bool r_success = (double.TryParse(right.ToString(), out real_right));
-                bool isbothnums = l_success & r_success;
+                List<bool> dblResults = [l_success, r_success];
+                bool isbothnums = dblResults.TrueForAll(s => s is true);
+                bool isbothfalse = dblResults.TrueForAll(s => s is false);
 
                 switch (expr.oper.type)
                 {
@@ -136,14 +138,17 @@ namespace LoxInterpreter
                         return real_left - real_right;
                     case TokenType.PLUS:
 
+
                         if (isbothnums)
                         {
                             return real_left + real_right;
                         }
-
-                        if ((left is String) && (right is String))
+                        else if (isbothfalse)
                         {
-                            return (String)left + (String)right;
+                            if ((left is String) && (right is String))
+                            {
+                                return (String)left + (String)right;
+                            }
                         }
 
                         throw new ParseErrorException(70, expr.oper, "Operands must be two numbers or two strings.");
