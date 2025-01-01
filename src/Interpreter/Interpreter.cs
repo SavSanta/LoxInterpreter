@@ -36,10 +36,9 @@ namespace LoxInterpreter
                 }
                 catch (Exception e)
                 {
-                    {
-                        // This previously was the catcher that spit out ""Got some fucking ExceptionError in Interpreter: {0}","
-                        // Console.WriteLine(e.Message);
-                    }
+                    
+                    // This previously was the catcher that spit out ""Got some fucking ExceptionError in Interpreter: {0}","
+                    // Console.WriteLine(e.Message);
 
                 }
             }
@@ -185,10 +184,7 @@ namespace LoxInterpreter
                         }
                         else
                         { return isEqual(left, right); }
-
-
-
-                        
+ 
                 }
 
                 // Unreachable.
