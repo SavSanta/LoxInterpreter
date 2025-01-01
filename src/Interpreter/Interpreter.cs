@@ -93,7 +93,8 @@ namespace LoxInterpreter
             }
             private void checkNumberOperand(Token oper, Object operand)
             {
-                if (oper is Double) return;
+                double _;
+                if (Double.TryParse(operand.ToString(), out _)) return;
                 throw new ParseErrorException(70 , oper, "Operand must be a number.");
             }
 
