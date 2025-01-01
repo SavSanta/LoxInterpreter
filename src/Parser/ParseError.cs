@@ -31,7 +31,7 @@ namespace LoxInterpreter
 
                 Lox.hasError = true;
                 Lox.ExitCode = exitcode;
-                Console.WriteLine(message);
+                Console.Error.WriteLine(message);
 
             }
 
