@@ -117,6 +117,10 @@ namespace LoxInterpreter
                 Object left = evaluate(expr.left);
                 Object right = evaluate(expr.right);
 
+                // In order to accomodate C# incessant need to coerce the boolean string repr into actual values. We get the literal value
+                // This will support the bootlegg "String" type check in PLUS (and maybe MINUS).
+                List<string> strLitVals = [left.ToString(), right.ToString()];
+
                 // Due to wonky-ness of Java -> C# translations
                 // We create some temp variables here to keep the "real" numbers as doubles.
                 double real_left, real_right;
@@ -162,7 +166,7 @@ namespace LoxInterpreter
                                 return (String)left + (String)right;
                             }
                         }
-                        else
+                        else if (strLitVals.Contains("true") || strLitVals.Contains("false"))
                         {
                             return (String)left + (String)right;
                         }
