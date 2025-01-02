@@ -1,4 +1,6 @@
 
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
 namespace LoxInterpreter {
     public class Token {
         public TokenType type;
@@ -23,7 +25,7 @@ namespace LoxInterpreter {
 
             if (type == TokenType.NUMBER)
             {
-                // Implemented in Scanner
+                this.lexeme = Convert.ToDouble(literal).ToString("F1");
             }
 
             return this.type + " " + this.lexeme + " " + literal;
