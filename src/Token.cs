@@ -25,8 +25,15 @@ namespace LoxInterpreter {
 
             if (type == TokenType.NUMBER)
             {
-                //this.lexeme = Convert.ToDouble(literal).ToString("F1");
-                this.literal = Convert.ToDouble(literal).ToString("F2");
+                // Essentially dupe code from ASTParser due to bad design of my program and this course itself
+                if (literal.ToString().Contains('.') == false)
+                {
+                    literal = literal.ToString() + ".0";
+                }
+                else
+                {
+                    literal = Convert.ToDouble(literal).ToString("F2").TrimEnd('0');
+                }
             }
 
             return this.type + " " + this.lexeme + " " + literal;
