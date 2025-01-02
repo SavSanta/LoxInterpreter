@@ -170,6 +170,10 @@ namespace LoxInterpreter
                         {
                             return (String)left + (String)right;
                         }
+                        else if ((left is String) && (right is String))
+                        {
+                            return (String)left + (String)right;
+                        }
 
                         throw new ParseErrorException(70, expr.oper, "Operands must be two numbers or two strings.");
                         break;
