@@ -4,8 +4,6 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Transactions;
 using System.Xml.Serialization;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
 
 namespace LoxInterpreter {
 public class Scanner {
