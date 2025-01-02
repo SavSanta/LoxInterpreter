@@ -26,6 +26,14 @@ namespace LoxInterpreter
                 if (obj is bool) return (bool)obj;
                 return true;
             }
+            private bool isLiteralTruthy(Object obj)
+            {
+                if (obj == null)
+                    return false;
+                if (obj is bool)
+                    return (bool)obj;
+                return true;
+            }
 
             public void interpret(ExprBase expr)
             {
@@ -143,7 +151,6 @@ namespace LoxInterpreter
                         break;
                     case TokenType.PLUS:
 
-
                         if (isbothnums)
                         {
                             return real_left + real_right;
@@ -154,6 +161,10 @@ namespace LoxInterpreter
                             {
                                 return (String)left + (String)right;
                             }
+                        }
+                        else
+                        {
+                            return (String)left + (String)right;
                         }
 
                         throw new ParseErrorException(70, expr.oper, "Operands must be two numbers or two strings.");
