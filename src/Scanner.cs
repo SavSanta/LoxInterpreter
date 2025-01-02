@@ -160,9 +160,15 @@ public class Scanner {
             }
         }
 
-        var floated_number = double.Parse(source[start..current]);
-        var rounded_oneplace_num = Math.Round(floated_number, 1);
-        addToken(TokenType.NUMBER, rounded_oneplace_num);
+            var floated_number = double.Parse(source[start..current]);
+            var rounded_oneplace_num = floated_number.ToString("F1"); ;
+        // Have to manually add one place if it is being treated as a whole integer.
+        //if (rounded_oneplace_num.Contains('.') == false)
+        //{
+        //    rounded_oneplace_num += ".0";
+        //}
+
+        addToken(TokenType.NUMBER, Double.Parse(rounded_oneplace_num));
 
     }
 
