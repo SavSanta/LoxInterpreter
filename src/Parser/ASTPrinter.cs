@@ -27,14 +27,22 @@ namespace LoxInterpreter
             public string visitLiteralExprBase(Literal expr)
             {
                 if (expr.value == null) return "nil";
-                
+
                 // This implmentation is to hopefully handle all the regressions relatred to the "parse" command in CC.
                 // This is bootleg as hell. Eventually one should make a static or util helper methoc to call on this conversion jits from objects to double
                 if (expr.value.GetType().Name == "Double")
                 {
-                    return Convert.ToDouble(expr.value).ToString("F1");
-                }
+                    if (expr.value.ToString().Contains('.') == false)
+                    {
+                        
+                        return (string)(expr.value += ".0");
+                    }
+                    else
+                    {
+                        return Convert.ToDouble(expr.value).ToString("F2");
 
+                    }
+                }
                 // The early boolean lowering is because ToString returns it with "True/False capitalized otherwise"
                 return Lox.ToLowerCaseIfBool(expr.value.ToString());
             }
