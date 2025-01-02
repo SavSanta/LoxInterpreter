@@ -160,8 +160,8 @@ public class Scanner {
             }
         }
 
-            var floated_number = double.Parse(source[start..current]);
-            var rounded_oneplace_num = floated_number.ToString("F2"); ;
+        var floated_number = double.Parse(source[start..current]);
+        var rounded_oneplace_num = floated_number.ToString("F2");
         //Have to manually add one place if it is being treated as a whole integer.
         if (rounded_oneplace_num.Contains('.') == false)
         {
