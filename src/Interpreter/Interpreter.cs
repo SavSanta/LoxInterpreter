@@ -159,6 +159,10 @@ namespace LoxInterpreter
                         {
                             return real_left + real_right;
                         }
+                        else if (!(isbothfalse) && !(isbothnums))
+                        {
+                                return (String)left + (String)right;
+                        }
                         else if (isbothfalse)
                         {
                             if ((left is String) && (right is String))
