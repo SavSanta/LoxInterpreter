@@ -26,7 +26,7 @@ namespace LoxInterpreter {
             if (type == TokenType.NUMBER)
             {
                 //this.lexeme = Convert.ToDouble(literal).ToString("F1");
-                this.literal = Convert.ToDouble(literal).ToString("F1");
+                this.literal = Convert.ToDouble(literal).ToString("F2");
             }
 
             return this.type + " " + this.lexeme + " " + literal;
