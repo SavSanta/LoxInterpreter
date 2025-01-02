@@ -135,7 +135,12 @@ namespace LoxInterpreter
                         return real_left <= real_right;
                     case TokenType.MINUS:
                         checkNumberOperands(expr.oper, real_left, real_right);
-                        return real_left - real_right;
+                        if (isbothnums)
+                        {
+                            return real_left - real_right;
+                        }
+                        throw new ParseErrorException(70, expr.oper, "Operands must be two numbers or two strings.");
+                        break;
                     case TokenType.PLUS:
 
 
