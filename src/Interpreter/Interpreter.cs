@@ -134,17 +134,37 @@ namespace LoxInterpreter
                 {
 
                     case TokenType.GREATER:
-                        checkNumberOperands(expr.oper, real_left, real_right);
-                        return real_left > real_right;
+                        if (isbothnums)
+                        {
+                            checkNumberOperands(expr.oper, real_left, real_right);
+                            return real_left > real_right;
+                        }
+                        throw new ParseErrorException(70, expr.oper, "Operands must be two numbers or two strings.");
+                        break;
                     case TokenType.GREATER_EQUAL:
-                        checkNumberOperands(expr.oper, real_left, real_right);
-                        return real_left >= real_right;
+                        if (isbothnums)
+                        {
+                            checkNumberOperands(expr.oper, real_left, real_right);
+                            return real_left >= real_right;
+                        }
+                        throw new ParseErrorException(70, expr.oper, "Operands must be two numbers or two strings.");
+                        break;
                     case TokenType.LESS:
-                        checkNumberOperands(expr.oper, real_left, real_right);
-                        return real_left < real_right;
+                        if (isbothnums)
+                        {
+                            checkNumberOperands(expr.oper, real_left, real_right);
+                            return real_left < real_right;
+                        }
+                        throw new ParseErrorException(70, expr.oper, "Operands must be two numbers or two strings.");
+                        break;
                     case TokenType.LESS_EQUAL:
-                        checkNumberOperands(expr.oper, real_left, real_right);
-                        return real_left <= real_right;
+                        if (isbothnums)
+                        {
+                            checkNumberOperands(expr.oper, real_left, real_right);
+                            return real_left <= real_right;
+                        }
+                        throw new ParseErrorException(70, expr.oper, "Operands must be two numbers or two strings.");
+                        break;
                     case TokenType.MINUS:
                         checkNumberOperands(expr.oper, real_left, real_right);
                         if (isbothnums)
