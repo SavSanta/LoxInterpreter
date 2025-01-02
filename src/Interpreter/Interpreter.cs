@@ -223,8 +223,7 @@ namespace LoxInterpreter
 
                         if (res)
                         {
-                            return true;
-                            return isEqual(left, real_right);
+                            return isEqual(left, right);
                         }
                         else if (isbothnums)
                         {
