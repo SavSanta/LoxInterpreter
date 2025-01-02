@@ -44,7 +44,7 @@ namespace LoxInterpreter
                 }
                 catch (Exception e)
                 {
-                    
+                    //System.InvalidCastException
                     // This previously was the catcher that spit out ""Got some fucking ExceptionError in Interpreter: {0}","
                     // Console.WriteLine(e.Message);
 
@@ -159,9 +159,9 @@ namespace LoxInterpreter
                         {
                             return real_left + real_right;
                         }
-                        else if (!(isbothfalse) && !(isbothnums))
+                        else if (!(isbothfalse) && (left.GetType().Name != right.GetType().Name))
                         {
-                                return (String)left + (String)right;
+                            throw new ParseErrorException(70, expr.oper, "Operands must be two numbers or two strings.");
                         }
                         else if (isbothfalse)
                         {
