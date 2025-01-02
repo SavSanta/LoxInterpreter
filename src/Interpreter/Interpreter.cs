@@ -155,6 +155,15 @@ namespace LoxInterpreter
                         break;
                     case TokenType.PLUS:
 
+                        // Early exit test because I dont think we'll ever add different types. Now That I have the Tokenizer parsing to Double in addToken
+                        // This may also make the follow=on test redundant but this is the pain of testing and testing
+
+                        if ((left.GetType().Name != right.GetType().Name))
+                        {
+                            throw new ParseErrorException(70, expr.oper, "Operands must be two numbers or two strings.");
+                        }
+
+
                         if (isbothnums)
                         {
                             return real_left + real_right;
