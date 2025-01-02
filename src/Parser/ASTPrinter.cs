@@ -39,8 +39,7 @@ namespace LoxInterpreter
                     }
                     else
                     {
-                        return Convert.ToDouble(expr.value).ToString("F2");
-
+                        return Convert.ToDouble(expr.value).ToString("F2").TrimEnd('0');
                     }
                 }
                 // The early boolean lowering is because ToString returns it with "True/False capitalized otherwise"
