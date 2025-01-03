@@ -38,12 +38,14 @@ namespace LoxInterpreter.Util
                 "Binary   : ExprBase left, Token oper, ExprBase right",
                 "Grouping : ExprBase expression",
                 "Literal  : Object value",
-                "Unary    : Token oper, ExprBase right"
+                "Unary    : Token oper, ExprBase right",
+                "Variable : Token name"
             };
 
             List<string> stmtnodelist = new List<string>() {
                 "Expression    : ExprBase expression",
                 "Print : ExprBase expression",
+                "Var        : Token name, ExprBase initializer"
             };
 
             DefineAST(outdir, "ExprBase", exprnodelist);
