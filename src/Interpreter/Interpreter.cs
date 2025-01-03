@@ -35,12 +35,15 @@ namespace LoxInterpreter
                 return true;
             }
 
-            public void interpret(ExprBase expr)
+            public void interpret(List<Stmt> statements)
             {
                 try
                 {
-                    Object value = evaluate(expr);
-                    Console.WriteLine(stringify(value));
+                    for (Stmt statement : statements)
+                    {
+                        execute(statement);
+                    }
+
                 }
                 catch (Exception e)
                 {
