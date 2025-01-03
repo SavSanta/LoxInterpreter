@@ -34,14 +34,19 @@ namespace LoxInterpreter.Util
              *  Expr -> ExprBase
              *  operator -> op
             */
-            List<string> nodelist = new List<string>() {
+            List<string> exprnodelist = new List<string>() {
                 "Binary   : ExprBase left, Token oper, ExprBase right",
                 "Grouping : ExprBase expression",
                 "Literal  : Object value",
                 "Unary    : Token oper, ExprBase right"
             };
 
-            DefineAST(outdir, "ExprBase", nodelist);
+            List<string> stmtnodelist = new List<string>() {
+                "Expression    : ExprBase expression",
+                "Print : ExprBase expression",
+            };
+
+            DefineAST(outdir, "ExprBase", exprnodelist);
             
         }
 
