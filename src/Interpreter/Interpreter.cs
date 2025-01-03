@@ -73,7 +73,10 @@ namespace LoxInterpreter
                 return Lox.ToLowerCaseIfBool(obj.ToString());
 
             }
-
+            private void execute(Stmt stmt)
+            {
+                stmt.Accept(this);
+            }
             private Object evaluate(Parser.ExprBase expr)
             {
                 return expr.Accept(this);
