@@ -11,7 +11,7 @@ namespace LoxInterpreter
 {
     namespace Interpreter
     {
-        public class Interpreter : IVisitorInterpreter
+        public class Interpreter : IVisitorInterpreter, IStatementVisitor
         {
             private bool isEqual(Object a, Object b)
             {
@@ -75,6 +75,18 @@ namespace LoxInterpreter
             {
                 return expr.Accept(this);
             }
+            public void visitExpressionStmt(Stmt.Expression stmt)
+            {
+                evaluate(stmt.expression);
+                return;
+            }
+            public void visitPrintStmt(Stmt.Print stmt)
+            {
+                Object value = evaluate(stmt.expression);
+                Console.WriteLine(stringify(value));
+                return;
+            }
+
             public Object visitLiteralExprBase(Parser.Literal expr)
             {
                 return expr.value;
