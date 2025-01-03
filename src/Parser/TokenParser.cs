@@ -177,17 +177,17 @@ namespace LoxInterpreter
                 return new ParseErrorException();
             }
 
-            public ExprBase parse()
+            public List<Stmt> parse()
             {
-                try
+                List<Stmt> statements = new ();
+                while (!isAtEnd())
                 {
-                    return expression();
+                    statements.Add(statement());
                 }
-                catch (ParseErrorException error)
-                {
-                    return null;
-                }
+
+                return statements;
             }
+            
 
             // Recursive Descents Tracker Reset via discarding tokens until we’re right at the beginning of the next statement.
             // As After a semicolon, we’re probably finished with a statement. Most statements start with a keyword—for, if, return, var, etc. When the next token is any of those, we’re probably about to start a statement.
