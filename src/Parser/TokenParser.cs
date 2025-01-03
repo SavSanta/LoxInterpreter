@@ -22,6 +22,24 @@ namespace LoxInterpreter
             {
                 return equality();
             }
+            private Stmt statement()
+            {
+                if (match(PRINT)) return printStatement();
+
+                return expressionStatement();
+            }
+            private Stmt printStatement()
+            {
+                ExprBase value = expression();
+                consume(SEMICOLON, "Expect ';' after value.");
+                return new Stmt.Print(value);
+            }
+            private Stmt expressionStatement()
+            {
+                ExprBase expr = expression();
+                consume(SEMICOLON, "Expect ';' after expression.");
+                return new Stmt.Expression(expr);
+            }
 
             private ExprBase equality()
             {
