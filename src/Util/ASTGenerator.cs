@@ -47,7 +47,9 @@ namespace LoxInterpreter.Util
             };
 
             DefineAST(outdir, "ExprBase", exprnodelist);
-            
+            DefineAST(outdir, "Stmt", stmtnodelist);
+
+
         }
 
 
