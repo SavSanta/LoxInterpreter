@@ -200,7 +200,7 @@ namespace LoxInterpreter
                 List<Stmt> statements = new ();
                 while (!isAtEnd())
                 {
-                    statements.Add(statement());
+                    statements.Add(declaration());
                 }
 
                 return statements;
