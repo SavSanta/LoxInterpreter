@@ -22,6 +22,23 @@ namespace LoxInterpreter
             {
                 return equality();
             }
+            private Stmt declaration()
+            {
+                try
+                {
+                    if (match(VAR))
+                    {
+                        return varDeclaration();
+                    }
+
+                    return statement();
+                }
+                catch (ParseErrorException error)
+                {
+                    synchronize();
+                    return null;
+                }
+            }
             private Stmt statement()
             {
                 if (match(PRINT)) return printStatement();
@@ -41,6 +58,19 @@ namespace LoxInterpreter
                 return new Stmt.Expression(expr);
             }
 
+            private Stmt varDeclaration()
+            {
+                Token name = consume(IDENTIFIER, "Expect variable name.");
+
+                ExprBase initializer = null;
+                if (match(EQUAL))
+                {
+                    initializer = expression();
+                }
+
+                consume(SEMICOLON, "Expect ';' after variable declaration.");
+                return new Stmt.Var(name, initializer);
+            }
             private ExprBase equality()
             {
                 ExprBase expr = comparison();
@@ -162,6 +192,11 @@ namespace LoxInterpreter
                 if (match(TokenType.NUMBER, TokenType.STRING))
                 {
                     return new Literal(previous().literal);
+                }
+
+                if (match(TokenType.IDENTIFIER))
+                {
+                    return new Variable(previous());
                 }
 
                 if (match(TokenType.LEFT_PAREN))
