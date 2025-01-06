@@ -62,7 +62,7 @@ namespace LoxInterpreter {
                         //Console.WriteLine((new ASTPrinter().Print(statements)));
                     }
                 }
-                else if ( command == "evaluate")
+                else if ( command == "evaluate" | command == "run")
                 {
                     Scanner scann = new Scanner(fileContents);
                     List<Token> parsed_tokens = scann.scanTokens();
