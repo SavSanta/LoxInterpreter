@@ -24,7 +24,7 @@ namespace LoxInterpreter.Util
             if (args.Length < 0)
             {
                 Console.Error.WriteLine("Usage: astgenerate <output_directory>");
-                Environment.Exit(64);
+                System.Environment.Exit(64);
             }
             var procid = Process.GetCurrentProcess().Id;
             Console.WriteLine("Oigan Esta Process {0}.\n Press Any Key to Verify", procid.ToString()); Console.ReadKey();
@@ -35,6 +35,7 @@ namespace LoxInterpreter.Util
              *  operator -> op
             */
             List<string> exprnodelist = new List<string>() {
+                "Assign   : Token name, ExprBase value",
                 "Binary   : ExprBase left, Token oper, ExprBase right",
                 "Grouping : ExprBase expression",
                 "Literal  : Object value",
@@ -43,6 +44,7 @@ namespace LoxInterpreter.Util
             };
 
             List<string> stmtnodelist = new List<string>() {
+                "Block      : List<Stmt> statements",
                 "Expression    : ExprBase expression",
                 "Print : ExprBase expression",
                 "Var        : Token name, ExprBase initializer"
@@ -50,8 +52,6 @@ namespace LoxInterpreter.Util
 
             DefineAST(outdir, "ExprBase", exprnodelist);
             DefineAST(outdir, "Stmt", stmtnodelist);
-
-
         }
 
 
@@ -122,7 +122,7 @@ namespace LoxInterpreter.Util
             Console.WriteLine("    }");
             Console.WriteLine();
 
-            // Visitor Pattern implementt=ing in each subclass
+            // Visitor Pattern implementing in each subclass
 
             Console.WriteLine("    public override");
             Console.WriteLine("    void Accept(Visitor visitor) {");
@@ -132,7 +132,7 @@ namespace LoxInterpreter.Util
             // Structure Field Members. put at the bottom
             foreach (string field in fields)
             {
-                Console.WriteLine("    private " + field + ";");
+                Console.WriteLine("    public " + field + ";");
             }
             Console.WriteLine("  }");
 

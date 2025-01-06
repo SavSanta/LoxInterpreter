@@ -1,7 +1,33 @@
-﻿namespace LoxInterpreter.Parser
+﻿using LoxInterpreter.Interpreter;
+
+namespace LoxInterpreter.Parser
 {
     public partial class Binary : ExprBase
     {
+
+        public partial class Assign : ExprBase
+        {
+            public Assign(Token name, ExprBase value)
+            {
+                this.name = name;
+                this.value = value;
+            }
+            public override
+            string Accept(IExprVisitor visitor)
+            {
+                return visitor.visitAssignExpr(this);
+            }
+
+            public override
+            object Accept(IVisitorInterpreter visitor)
+            {
+                return visitor.visitAssignExpr(this);
+            }
+
+            public ExprBase value;
+            public Token name;
+
+        }
 
         public Binary(ExprBase left, Token oper, ExprBase right)
         {
@@ -66,5 +92,23 @@
         public ExprBase right;
     }
 
+    public class Variable : ExprBase
+    {
+        public Variable(Token name) {
+            this.name = name;
+        }
 
+        public override
+        string Accept(IExprVisitor visitor)
+        {
+            return visitor.visitUnaryExprBase(this);
+        }
+
+        public override string Accept(IVisitorInterpreter visitor)
+        {
+            return visitor.visitUnaryExprBase(this);
+        }
+
+        public Token name;
+    }
 }

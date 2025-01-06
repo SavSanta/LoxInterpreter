@@ -17,7 +17,7 @@ namespace LoxInterpreter
                 Lox.hasError = true;
                 Lox.ExitCode = 65;
             }
-            public ParseErrorException(string message): base(message)
+            public ParseErrorException(Token name, string message): base(message)
             {
                
                 Lox.hasError = true;

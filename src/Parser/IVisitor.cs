@@ -8,6 +8,8 @@
             string visitGroupingExprBase(Grouping exprbase);
             string visitLiteralExprBase(Literal exprbase);
             string visitUnaryExprBase(Unary exprbase);
+            string visitAssignExpr(Binary.Assign assignment);
+            string visitUnaryExprBase(Variable variable);
         }
     }
 }

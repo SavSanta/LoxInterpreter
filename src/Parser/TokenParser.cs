@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System;
 using System.Text.RegularExpressions;
+using LoxInterpreter.Statement;
 
 namespace LoxInterpreter
 {
@@ -18,15 +19,37 @@ namespace LoxInterpreter
             
             }
 
+            private ExprBase assignment()
+            {
+                ExprBase expr = equality();
+
+                if (match(TokenType.EQUAL))
+                {
+                    Token equals = previous();
+                    ExprBase value = assignment();
+
+                    if (expr is Var) {
+                        //Token name = ((Var)expr).name;
+                        Token name = ((Variable)expr).name;
+                        return new Binary.Assign(name, value);
+                    }
+
+                    Lox.Error(equals, "Invalid assignment target.");
+                }
+
+                return expr;
+
+            }
+
             private ExprBase expression()
             {
-                return equality();
+                return assignment();
             }
             private Stmt declaration()
             {
                 try
                 {
-                    if (match(VAR))
+                    if (match(TokenType.VAR))
                     {
                         return varDeclaration();
                     }
@@ -39,37 +62,50 @@ namespace LoxInterpreter
                     return null;
                 }
             }
+            private List<Stmt> block()
+            {
+                List<Stmt> statements = new ();
+
+                while (!check(TokenType.RIGHT_BRACE) && !isAtEnd())
+                {
+                    statements.Add(declaration());
+                }
+
+                consume(TokenType.RIGHT_BRACE, "Expect '}' after block.");
+                return statements;
+            }
             private Stmt statement()
             {
-                if (match(PRINT)) return printStatement();
+                if (match(TokenType.PRINT)) return printStatement();
+                if (match(TokenType.LEFT_BRACE)) return new Block(block());
 
                 return expressionStatement();
             }
             private Stmt printStatement()
             {
                 ExprBase value = expression();
-                consume(SEMICOLON, "Expect ';' after value.");
-                return new Stmt.Print(value);
+                consume(TokenType.SEMICOLON, "Expect ';' after value.");
+                return new Print(value);
             }
             private Stmt expressionStatement()
             {
                 ExprBase expr = expression();
-                consume(SEMICOLON, "Expect ';' after expression.");
-                return new Stmt.Expression(expr);
+                consume(TokenType.SEMICOLON, "Expect ';' after expression.");
+                return new Expression(expr);
             }
 
             private Stmt varDeclaration()
             {
-                Token name = consume(IDENTIFIER, "Expect variable name.");
+                Token name = consume(TokenType.IDENTIFIER, "Expect variable name.");
 
                 ExprBase initializer = null;
-                if (match(EQUAL))
+                if (match(TokenType.EQUAL))
                 {
                     initializer = expression();
                 }
 
-                consume(SEMICOLON, "Expect ';' after variable declaration.");
-                return new Stmt.Var(name, initializer);
+                consume(TokenType.SEMICOLON, "Expect ';' after variable declaration.");
+                return new Var(name, initializer);
             }
             private ExprBase equality()
             {

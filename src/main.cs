@@ -8,6 +8,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Threading.Channels;
 using LoxInterpreter.Interpreter;
 using LoxInterpreter.Parser;
+using LoxInterpreter.Statement;
 
 namespace LoxInterpreter {
     public class Lox {
@@ -23,7 +24,7 @@ namespace LoxInterpreter {
                 Console.Error.WriteLine("Usage: ./your_program.sh tokenize <filename>");
                 Console.Error.WriteLine("Usage: ./your_program.sh parse <filename>");
                 Console.Error.WriteLine("Usage: ./your_program.sh evaluate <filename>");
-                Environment.Exit(1);
+                System.Environment.Exit(1);
             }
 
             string command = args[0];
@@ -32,7 +33,7 @@ namespace LoxInterpreter {
             if (!Lox.commands.Contains(command))
             {
                 Console.Error.WriteLine($"Unknown command: {command}");
-                Environment.Exit(1);
+                System.Environment.Exit(1);
             }
 
             // Read file contents and check if empty
@@ -51,11 +52,14 @@ namespace LoxInterpreter {
                 {
                     Scanner scann = new Scanner(fileContents);
                     List<Token> parsed_tokens = scann.scanTokens();
+                    //TokenParser pars = new TokenParser(parsed_tokens);
+                    //ExprBase expression = pars.parse();
                     TokenParser pars = new TokenParser(parsed_tokens);
-                    ExprBase expression = pars.parse();
+                    List<Stmt> statements = pars.parse();
                     if (!hasError)
                     {
-                        Console.WriteLine((new ASTPrinter().Print(expression)));
+                        //Console.WriteLine((new ASTPrinter().Print(expression)));
+                        //Console.WriteLine((new ASTPrinter().Print(statements)));
                     }
                 }
                 else if ( command == "evaluate")
@@ -63,12 +67,12 @@ namespace LoxInterpreter {
                     Scanner scann = new Scanner(fileContents);
                     List<Token> parsed_tokens = scann.scanTokens();
                     TokenParser pars = new TokenParser(parsed_tokens);
-                    ExprBase expression = pars.parse();
+                    List<Stmt> statements = pars.parse();
                     LoxInterpreter.Interpreter.Interpreter interpr = new();
-                    interpr.interpret(expression);
+                    interpr.interpret(statements);
                 }
 
-                Environment.Exit(ExitCode);
+                System.Environment.Exit(ExitCode);
             }
             else
             {

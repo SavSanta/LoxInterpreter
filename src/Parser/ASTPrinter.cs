@@ -78,6 +78,16 @@ namespace LoxInterpreter
                 
                 Console.WriteLine(new ASTPrinter().Print(expression));
             }
+
+            public string visitAssignExpr(Binary.Assign assignment)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string visitUnaryExprBase(Variable variable)
+            {
+                throw new NotImplementedException();
+            }
         }
 
     }

@@ -13,6 +13,21 @@ namespace LoxInterpreter.Parser
         }
 
     }
+
+    //public partial class Assign : ExprBase
+    //{
+    //    public Assign(Token name, ExprBase value)
+    //    {
+    //        this.name = name;
+    //        this.value = value;
+    //    }
+        
+
+    //    public ExprBase value;
+    //    public Token name;
+
+    //}
+
     public partial class Grouping : ExprBase
     {
         public override

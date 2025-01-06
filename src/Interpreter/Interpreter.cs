@@ -6,6 +6,8 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using LoxInterpreter.Parser;
+using LoxInterpreter.Statement;
+
 
 namespace LoxInterpreter
 {
@@ -13,6 +15,8 @@ namespace LoxInterpreter
     {
         public class Interpreter : IVisitorInterpreter, IStatementVisitor
         {
+            private LoxInterpreter.Environment.Environment environment = new();
+
             private bool isEqual(Object a, Object b)
             {
                 if (a == null && b == null) return true;
@@ -39,7 +43,7 @@ namespace LoxInterpreter
             {
                 try
                 {
-                    for (Stmt statement : statements)
+                    foreach (Stmt statement in statements)
                     {
                         execute(statement);
                     }
@@ -75,24 +79,68 @@ namespace LoxInterpreter
             }
             private void execute(Stmt stmt)
             {
-                stmt.Accept(this);
+                // Force cast because this shit is bonkers
+                stmt.Accept((Stmt.IStatementVisitor)this);
             }
+            private void executeBlock(List<Stmt> statements, Environment.Environment environment)
+            {
+                Environment.Environment previous = this.environment;
+                try
+                {
+                    this.environment = environment;
+                    foreach (Stmt statement in statements)
+                    {
+                        execute(statement);
+                    }
+                }
+                finally
+                {
+                    this.environment = previous;
+                }
+            }
+
             private Object evaluate(Parser.ExprBase expr)
             {
                 return expr.Accept(this);
             }
-            public void visitExpressionStmt(Stmt.Expression stmt)
+            public Object visitAssignExpr(Binary.Assign expr)
             {
-                evaluate(stmt.expression);
+                Object value = evaluate(expr.value);
+                environment.assign(expr.name, value);
+                return value;
+            }
+
+            public void visitExpressionStmt(LoxInterpreter.Statement.Expression stmt)
+            {
+                evaluate(stmt.expr);
                 return;
             }
-            public void visitPrintStmt(Stmt.Print stmt)
+            public void visitBlockStmt(Block stmt)
+            {
+                executeBlock(stmt.statements, new Environment.Environment(environment));
+                return;
+            }
+            public void visitPrintStmt(Print stmt)
             {
                 Object value = evaluate(stmt.expression);
                 Console.WriteLine(stringify(value));
                 return;
             }
+            public void visitVarStmt(Var stmt)
+            {
+                Object value = null;
+                if (stmt.initializer != null)
+                {
+                    value = evaluate(stmt.initializer);
+                }
 
+                environment.define(stmt.name.lexeme, value);
+                return;
+            }
+            public Object visitVariableExpr(Var expr)
+            {
+                return environment.get(expr.name);
+            }
             public Object visitLiteralExprBase(Parser.Literal expr)
             {
                 return expr.value;
@@ -283,10 +331,10 @@ namespace LoxInterpreter
                 return null;
             }
 
-
-
-
-
+            public string visitUnaryExprBase(Variable variable)
+            {
+                throw new NotImplementedException();
+            }
         }
 
 
